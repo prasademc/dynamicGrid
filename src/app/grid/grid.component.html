@@ -1,47 +1,51 @@
 <article class="container">
   <div class="grid">
-    <div class="grid--topbar">
-      <div class="grid--topbar__select">
-        <select>
-          <option selected>Please select hour intervel</option>
-          <option *ngFor="let hour of hours" [value]="hour.value">{{
-            hour.key
-          }}</option>
-        </select>
-      </div>
-    </div>
-    <div class="grid--buttonbar">
-      <button>Add a New Row</button>
-      <button>Save Data</button>
-    </div>
-    <div class="grid--wrapper">
-      <div class="grid--wrapper__header">
-        <div class="grid--wrapper__header--cell">
-          Measure Point Name
-        </div>
-        <div class="grid--wrapper__header--cell">
-          00.00
-        </div>
-        <div class="grid--wrapper__header--cell">
-          06.00
-        </div>
-        <div class="grid--wrapper__header--cell">
-          12.00
-        </div>
-        <div class="grid--wrapper__header--cell">
-          18.00
+    <form novalidate [formGroup]="gridForm" (ngSubmit)="onSubmit()">
+      <div class="grid--topbar">
+        <div class="grid--topbar__select">
+          <select formControlName="selectHour">
+            <option *ngFor="let hour of hours" [value]="hour.value">{{
+              hour.key
+            }}</option>
+          </select>
         </div>
       </div>
-      <div class="grid--wrapper__body">
-        <div class="grid--wrapper__body--row">
-            <div class="grid--wrapper__body--row__col">MDE Item1</div>
-            <div class="grid--wrapper__body--row__col">g/L</div>
-            <div class="grid--wrapper__body--row__col">1</div>
-            <div class="grid--wrapper__body--row__col">2</div>
-            <div class="grid--wrapper__body--row__col">3</div>
-            <div class="grid--wrapper__body--row__col">4</div>
+      <div class="grid--buttonbar">
+        <button>Add a New Row</button>
+        <button type="submit">Save Data</button>
+      </div>
+      <div class="grid--wrapper">
+        <div class="grid--wrapper__header">
+            <div class="grid--wrapper__header--fixed">
+              <div class="grid--wrapper__header--fixed__cell">
+                Measure Point Name
+              </div>
+              <div class="grid--wrapper__header--fixed__cell">
+                Units
+              </div>
+            </div>
+            <div class="grid--wrapper__header--dynamic">
+              <div *ngFor="let numItem of createRange(selectedHours)" class="grid--wrapper__header--dynamic__cell">
+                {{setHour(selectedHours, numItem)}}
+              </div>
+            </div>
+          </div>
+        <div class="grid--wrapper__body">
+          <div class="grid--wrapper__body--fixed">
+            <div class="grid--wrapper__body--fixed__row">
+              <div class="grid--wrapper__body--fixed__row--col">MDE Item1</div>
+              <div class="grid--wrapper__body--fixed__row--col">g/L</div>
+            </div>
+          </div>
+          <div class="grid--wrapper__body--dynamic">
+            <div class="grid--wrapper__body--dynamic__row">
+              <div *ngFor="let numItem of createRange(selectedHours)" class="grid--wrapper__body--dynamic__row--col">
+                  <input type="text" value=""/>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </article>

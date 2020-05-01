@@ -12,3 +12,9 @@ export const Hours = [
         value: '24'
     }
 ]
+
+export const SelectedHours:number = 4;
+
+export class Grid {
+    selectHour: string;
+}

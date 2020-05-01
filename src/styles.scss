@@ -41,3 +41,12 @@ button {
   font-size: 1rem;
   background-color: #111111;
 }
+
+input[type=text] {
+  border-radius: 0.25em;
+  border: 1px solid #111111;
+  width: 100%;
+  padding: 0.5em 1rem;
+  margin: 0;
+  box-sizing: border-box;
+}
