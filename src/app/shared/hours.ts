@@ -15,17 +15,9 @@ export const Hours = [
 
 export const SelectedHours:number = 4;
 
-class Units {
+export class Grid {
+    SelectedHours: string;
+    name: string;
     time: string;
     value: string;
-}
-
-export class GridItem {
-    selectHour: string;
-    name: string;
-    units: Units[];
-}
-
-export class Grid {
-    Grid: GridItem[];
 }

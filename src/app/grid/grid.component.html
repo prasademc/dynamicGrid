@@ -15,7 +15,10 @@
         <button type="submit">Save Data</button>
       </div>
       <div class="grid--wrapper">
-        <div class="grid--wrapper__header" [ngStyle]="{ width: setContainerWidth(selectedHours) }">
+        <div
+          class="grid--wrapper__header"
+          [ngStyle]="{ width: setContainerWidth(selectedHours) }"
+        >
           <div class="grid--wrapper__header--fixed">
             <div class="grid--wrapper__header--fixed__cell">
               Measure Point Name
@@ -34,23 +37,38 @@
             </div>
           </div>
         </div>
-        <div class="grid--wrapper__body" [ngStyle]="{ width: setContainerWidth(selectedHours) }">
+        <div
+          class="grid--wrapper__body"
+          [ngStyle]="{ width: setContainerWidth(selectedHours) }"
+        >
           <div class="grid--wrapper__body--fixed">
-            <div class="grid--wrapper__body--fixed__row" *ngFor="let row of gridForm.get('rows')?.controls;let index = index;">
+            <div
+              class="grid--wrapper__body--fixed__row"
+              *ngFor="
+                let row of gridForm.get('rows')?.controls;
+                let index = index
+              "
+            >
               <div class="grid--wrapper__body--fixed__row--col">
-                <label>MDE Item {{index}}</label>
+                MDE Item {{ index }}
               </div>
               <div class="grid--wrapper__body--fixed__row--col">g/L</div>
             </div>
           </div>
           <div class="grid--wrapper__body--dynamic">
-            <div class="grid--wrapper__body--dynamic__row" *ngFor="let row of gridForm.get('rows')?.controls;let index = index;">
+            <div
+              class="grid--wrapper__body--dynamic__row"
+              *ngFor="
+                let row of gridForm.get('rows')?.controls;
+                let index = index
+              "
+            >
               <div
                 *ngFor="let numItem of createRange(selectedHours)"
                 class="grid--wrapper__body--dynamic__row--col"
                 [ngStyle]="{ width: getWidth(selectedHours) }"
               >
-                <input type="text"/>
+                <input type="text" [formControl]="row.get('value')" />
               </div>
             </div>
           </div>

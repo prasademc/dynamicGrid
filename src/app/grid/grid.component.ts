@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, FormArray } from '@angular/forms'
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms'
 import { Grid, Hours, SelectedHours } from '../shared/hours';
 
 @Component({
@@ -20,25 +20,16 @@ export class GridComponent implements OnInit {
 
   ngOnInit(): void {
     this.gridForm.addControl('rows', this.rows);
-    this.rows.push(this.createItemFormGroup());
+    this.rows.push(this.createItemFormGroup(0));
   }
 
   createForm() {
     this.rows = this.fb.array([]);
     this.gridForm = this.fb.group({
       selectHour: '4',
-      grid: [{
-        value: ''
-      },
-      {
-        value: ''
-      },
-      {
-        value: ''
-      },
-      {
-        value: ''
-      }]
+      name: 'MDE Item',
+      time: '00.00',
+      value: ''
     });
   }
 
@@ -52,23 +43,16 @@ export class GridComponent implements OnInit {
   }
 
   onAddRow(): void {
-    this.rows.push(this.createItemFormGroup());
+    let index = 0;
+    this.rows.push(this.createItemFormGroup(index));
   }
 
-  createItemFormGroup(): FormGroup {
+  createItemFormGroup(i): FormGroup {
     return this.fb.group({
-      grid: [{
-        value: ''
-      },
-      {
-        value: ''
-      },
-      {
-        value: ''
-      },
-      {
-        value: ''
-      }]
+      selectHour: '4',
+      name: `MDE Item ${i}`,
+      time: '00.00',
+      value: ''
     });
   }
 
