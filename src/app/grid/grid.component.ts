@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, FormArray } from '@angular/forms'
 import { Grid, Hours, SelectedHours } from '../shared/hours';
 
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
-  styleUrls: ['./grid.component.scss']
+  styleUrls: ['./grid.component.scss'],
 })
 export class GridComponent implements OnInit {
-  grid: Grid;
   gridForm: FormGroup;
+  rows: FormArray;
+  grid: Grid;
   hours = Hours;
   selectedHours = SelectedHours;
 
@@ -18,20 +19,56 @@ export class GridComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //selectedHours = this.gridForm.get('selectHour').value;
+    this.gridForm.addControl('rows', this.rows);
+    this.rows.push(this.createItemFormGroup());
   }
 
   createForm() {
+    this.rows = this.fb.array([]);
     this.gridForm = this.fb.group({
-      selectHour: '4'
+      selectHour: '4',
+      grid: [{
+        value: ''
+      },
+      {
+        value: ''
+      },
+      {
+        value: ''
+      },
+      {
+        value: ''
+      }]
     });
   }
 
   onSubmit() {
     this.grid = this.gridForm.value;
     console.log(this.grid);
-    this.gridForm.reset({
-      selectHour: '4',
+  }
+
+  onChange(e): void {
+    this.selectedHours = e.target.value;
+  }
+
+  onAddRow(): void {
+    this.rows.push(this.createItemFormGroup());
+  }
+
+  createItemFormGroup(): FormGroup {
+    return this.fb.group({
+      grid: [{
+        value: ''
+      },
+      {
+        value: ''
+      },
+      {
+        value: ''
+      },
+      {
+        value: ''
+      }]
     });
   }
 
@@ -44,6 +81,16 @@ export class GridComponent implements OnInit {
   }
 
   setHour(number: number, currentIndex: number) {
-    return (24 / number) * currentIndex < 10 ? `0${(24 / number) * currentIndex}.00` : `${(24 / number) * currentIndex}.00`
+    return (24 / number) * currentIndex < 10
+      ? `0${(24 / number) * currentIndex}.00`
+      : `${(24 / number) * currentIndex}.00`;
+  }
+
+  getWidth(hours: number) {
+    return `${100 / hours}%`;
+  }
+
+  setContainerWidth(hours: number) {
+    return hours == 24 ? '1400px' : `100%`;
   }
 }
