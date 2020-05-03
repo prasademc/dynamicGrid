@@ -20,7 +20,7 @@ export class GridComponent implements OnInit {
 
   ngOnInit(): void {
     this.gridForm.addControl('rows', this.rows);
-    this.rows.push(this.createItemFormGroup(0));
+    this.rows.push(this.createGridRow(0));
   }
 
   createForm() {
@@ -42,12 +42,20 @@ export class GridComponent implements OnInit {
     this.selectedHours = e.target.value;
   }
 
+  /**
+   * Add new grid row
+   */
   onAddRow(): void {
     let index = 0;
-    this.rows.push(this.createItemFormGroup(index));
+    this.rows.push(this.createGridRow(index));
   }
 
-  createItemFormGroup(i: number): FormGroup {
+  /**
+   * Create row of the grid
+   * @param {number} i The index of the row.
+   * @return form group.
+   */
+  createGridRow(i: number): FormGroup {
     return this.fb.group({
       selectHour: '4',
       name: `MDE Item ${i}`,
