@@ -38,7 +38,7 @@ export class GridComponent implements OnInit {
     console.log(this.grid);
   }
 
-  onChange(e): void {
+  onChange(e:any): void {
     this.selectedHours = e.target.value;
   }
 
