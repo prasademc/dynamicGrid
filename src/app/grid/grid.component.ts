@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms'
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Grid, Hours, SelectedHours } from '../shared/hours';
 
 @Component({
@@ -29,7 +29,7 @@ export class GridComponent implements OnInit {
       selectHour: '4',
       name: 'MDE Item',
       time: '00.00',
-      value: ''
+      value: '',
     });
   }
 
@@ -47,16 +47,21 @@ export class GridComponent implements OnInit {
     this.rows.push(this.createItemFormGroup(index));
   }
 
-  createItemFormGroup(i:number): FormGroup {
+  createItemFormGroup(i: number): FormGroup {
     return this.fb.group({
       selectHour: '4',
       name: `MDE Item ${i}`,
       time: '00.00',
-      value: ''
+      value: '',
     });
   }
 
-  createRange(number: number):Array<any> {
+  /**
+   * Create time intervals array base on the number of column
+   * @param {number} number The number to hour interval.
+   * @return {Array} number of time intervals.
+   */
+  createRange(number: number): Array<any> {
     var numItems: number[] = [];
     for (var i = 1; i <= number; i++) {
       numItems.push(i - 1);
@@ -64,17 +69,33 @@ export class GridComponent implements OnInit {
     return numItems;
   }
 
-  setHour(number: number, currentIndex: number):string {
+  /**
+   * Set time interval base on the number of columns
+   * @param {number} number The number to hour interval.
+   * @param {number} currentIndex the currect index.
+   * @return {sting} time interval.
+   */
+  setHour(number: number, currentIndex: number): string {
     return (24 / number) * currentIndex < 10
       ? `0${(24 / number) * currentIndex}.00`
       : `${(24 / number) * currentIndex}.00`;
   }
 
-  getWidth(hours: number):string {
+  /**
+   * Set with of columns base on hour interval
+   * @param {number} hours The number to hour interval.
+   * @return {sting} css property width.
+   */
+  getWidth(hours: number): string {
     return `${100 / hours}%`;
   }
 
-  setContainerWidth(hours: number):string {
+  /**
+   * Set with if hours is 24
+   * @param {number} hours The number to hour interval.
+   * @return {sting} css property width.
+   */
+  setContainerWidth(hours: number): string {
     return hours == 24 ? '1400px' : `100%`;
   }
 }
